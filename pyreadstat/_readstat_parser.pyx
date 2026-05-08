@@ -246,7 +246,8 @@ cdef object transform_datetime(py_datetime_format var_format, double tstamp, py_
             # tstamp in seconds
             days = <int> (floor(tstamp / 86400))
             secs = <int> (tstamp % 86400)
-            tdelta = timedelta_new(days, secs, 0)
+            usecs = <int> (round(tstamp % 1 * 1e6))
+            tdelta = timedelta_new(days, secs, usecs)
             #tdelta = timedelta(seconds=tstamp)
         mydat = origin + tdelta
         return mydat
@@ -263,7 +264,8 @@ cdef object transform_datetime(py_datetime_format var_format, double tstamp, py_
             # tstamp in seconds
             days = <int> (floor(tstamp / 86400))
             secs = <int> (tstamp % 86400)
-            tdelta = timedelta_new(days, secs, 0)
+            usecs = <int> (round(tstamp % 1 * 1e6))
+            tdelta = timedelta_new(days, secs, usecs)
             #tdelta = timedelta(seconds=tstamp)
         mydat = origin + tdelta
         return mydat.time()
